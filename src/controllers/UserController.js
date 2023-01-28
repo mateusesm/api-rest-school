@@ -3,16 +3,11 @@ import User from '../models/User';
 class UserController {
   async store(req, res) {
     try {
-      const newUser = await User.create({
-        id: 1,
-        name: 'Mateus',
-        email: 'mateus@gmail.com',
-        password: '12345678',
-      });
+      const newUser = await User.create(req.body);
 
-      const { id, name, email } = newUser;
+      const { id, name, email, password, password_hash } = newUser;
 
-      return res.json({ id, name, email });
+      return res.json({ id, name, email, password, password_hash });
     } catch (error) {
       return res.status(400).json({
         errors: error.errors.map((e) => e.message),
@@ -25,9 +20,7 @@ class UserController {
       const users = await User.findAll({ attributes: ['id', 'name', 'email'] });
       return res.json(users);
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors.map((e) => e.message),
-      });
+      return res.json(null);
     }
   }
 

@@ -4,14 +4,16 @@ import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
-// router.get('/', loginRequired, userController.index);
+router.get('/', userController.index);
 // router.get('/show/:id?', userController.show);
 
-router.get('/store/', userController.store); /* aqui deveria ser POST coloquei get para testar pois não tinha o insomnia */
+router.post('/', userController.store);
 
-router.get('/update/', loginRequired, userController.update); /* aqui deveria ser PUT coloquei get para testar pois não tinha o insomnia */
+// router.get('/update/', loginRequired, userController.update);
+/* aqui deveria ser PUT coloquei get para testar pois não tinha o insomnia */
 
-router.get('/delete/', loginRequired, userController.delete); /* aqui deveria ser DELETE coloquei get para testar pois não tinha o insomnia */
+// router.get('/delete/', loginRequired, userController.delete);
+/* aqui deveria ser DELETE coloquei get para testar pois não tinha o insomnia */
 
 export default router;
 
