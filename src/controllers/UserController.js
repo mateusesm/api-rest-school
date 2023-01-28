@@ -5,9 +5,9 @@ class UserController {
     try {
       const newUser = await User.create(req.body);
 
-      const { id, name, email, password, password_hash } = newUser;
+      const { id, name, email } = newUser;
 
-      return res.json({ id, name, email, password, password_hash });
+      return res.json({ id, name, email });
     } catch (error) {
       return res.status(400).json({
         errors: error.errors.map((e) => e.message),
@@ -31,15 +31,19 @@ class UserController {
 
       return res.json({ id, name, email });
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors.map((e) => e.message),
-      });
+      return res.json(null);
     }
   }
 
   async update(req, res) {
     try {
-      const user = await User.findByPk(req.userId);
+      if (!req.params.id) {
+        return res.status(400).json({
+          errors: ['Missing ID!'],
+        });
+      }
+
+      const user = await User.findByPk(req.params.id);
 
       if (!user) {
         return res.status(400).json({
@@ -52,15 +56,19 @@ class UserController {
 
       return res.json({ id, name, email });
     } catch (error) {
-      return res.status(400).json({
-        errors: error.errors.map((e) => e.message),
-      });
+      return res.json(null);
     }
   }
 
   async delete(req, res) {
     try {
-      const user = await User.findByPk(req.usserId);
+      if (!req.params.id) {
+        return res.status(400).json({
+          errors: ['Missing ID!'],
+        });
+      }
+
+      const user = await User.findByPk(req.params.id);
 
       if (!user) {
         return res.status(400).json({
