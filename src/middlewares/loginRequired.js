@@ -6,12 +6,11 @@ export default async (req, res, next) => {
 
   if (!authorization) {
     return res.status(401).json({
-      route: 'token middleware',
-      errros: ['Login required!'],
+      errors: ['Login required!'],
     });
   }
 
-  const { text, token } = authorization.split(' ');
+  const [, token] = authorization.split(' ');
 
   try {
     const datas = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -26,7 +25,6 @@ export default async (req, res, next) => {
 
     if (!user) {
       return res.status(401).json({
-        route: 'token middleware',
         errors: ['Invalid user!'],
       });
     }
@@ -35,9 +33,9 @@ export default async (req, res, next) => {
     req.userEmail = email;
     return next();
   } catch (error) {
+    console.log(error.message);
     return res.status(401).json({
-      route: 'token middleware',
-      errors: error,
+      errors: ['Expired or invalid Token!'],
     });
   }
 };
