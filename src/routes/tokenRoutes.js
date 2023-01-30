@@ -3,7 +3,6 @@ import tokenController from '../controllers/TokenController';
 
 const router = new Router();
 
-// router.get('/', tokenController.store);
-/* aqui deveria ser POST coloquei get para testar pois não tinha o insomnia */
+router.post('/', tokenController.store);
 
 export default router;
