@@ -16,8 +16,6 @@ class UserController {
   }
 
   async index(req, res) {
-    console.log('USER ID', req.userId);
-    console.log('USER EMAIL', req.userEmail);
     try {
       const users = await User.findAll({ attributes: ['id', 'name', 'email'] });
       return res.json(users);
@@ -39,13 +37,7 @@ class UserController {
 
   async update(req, res) {
     try {
-      if (!req.params.id) {
-        return res.status(400).json({
-          errors: ['Missing ID!'],
-        });
-      }
-
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(400).json({
@@ -64,13 +56,7 @@ class UserController {
 
   async delete(req, res) {
     try {
-      if (!req.params.id) {
-        return res.status(400).json({
-          errors: ['Missing ID!'],
-        });
-      }
-
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(400).json({
