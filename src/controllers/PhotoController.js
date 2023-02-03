@@ -6,7 +6,15 @@ const upload = multer(multerConfig).single('photo');
 
 class PhotoController {
   store(req, res) {
-    return res.json(req.file);
+    return upload(req, res, (error) => {
+      if (error) {
+        return res.status(400).json({
+          errors: [error.code],
+        });
+      }
+
+      return res.json(req.file);
+    });
   }
 }
 
