@@ -6,7 +6,11 @@ class StudentController {
     try {
       const students = await Student.findAll({
         attributes: ['id', 'name', 'email', 'lastname', 'age', 'weight', 'height'],
-        order: [['id', 'DESC']],
+        order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
+        include: {
+          model: Photo,
+          attributes: ['filename'],
+        },
       });
       return res.json(students);
     } catch (error) {

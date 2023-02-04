@@ -1,6 +1,6 @@
 ### API Rest of School
 
-A simple school API Rest make with JavaScript/NodeJS using Express for setting server, Sequelize for consults and updates and relational database Maria DB.
+A simple school API Rest make with JavaScript/NodeJS using Express for setting server, Sequelize for consults and updates and relational database Maria DB with Docker.
 
 ### Installation
 
