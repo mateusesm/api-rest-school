@@ -6,14 +6,18 @@ const upload = multer(multerConfig).single('photo');
 
 class PhotoController {
   store(req, res) {
-    return upload(req, res, (error) => {
+    return upload(req, res, async (error) => {
       if (error) {
         return res.status(400).json({
           errors: [error.code],
         });
       }
 
-      return res.json(req.file);
+      const { originalname, filename } = req.file;
+      const { student_id } = req.body;
+      const photo = await Photo.create({ originalname, filename, student_id });
+
+      return res.json(photo);
     });
   }
 }
