@@ -9,7 +9,7 @@ class StudentController {
         order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
         include: {
           model: Photo,
-          attributes: ['filename'],
+          attributes: ['url', 'filename'],
         },
       });
       return res.json(students);
@@ -71,7 +71,11 @@ class StudentController {
 
       const student = await Student.findByPk(id, {
         attributes: ['id', 'name', 'lastname', 'age', 'weight', 'height'],
-        order: [['id', 'DESC']],
+        order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
+        include: {
+          model: Photo,
+          attributes: ['url', 'filename'],
+        },
       });
 
       if (!student) {
