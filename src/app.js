@@ -16,8 +16,8 @@ import photoRoutes from './routes/photoRoutes';
 import './database';
 
 const whiteList = [
-  'http://localhost:5173/',
-  'http://localhost:3000/',
+  'http://localhost:5173',
+  'http://localhost:3000',
 ];
 
 const corsOptions = {
@@ -39,7 +39,7 @@ class App {
 
   middlewares() {
     this.app.use(cors(corsOptions));
-    this.app.use(helmet());
+    this.app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use(express.static(resolve(__dirname, '..', 'uploads')));
