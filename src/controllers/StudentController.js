@@ -70,7 +70,7 @@ class StudentController {
       }
 
       const student = await Student.findByPk(id, {
-        attributes: ['id', 'name', 'lastname', 'age', 'weight', 'height'],
+        attributes: ['id', 'name', 'lastname', 'email', 'age', 'weight', 'height'],
         order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
         include: {
           model: Photo,
